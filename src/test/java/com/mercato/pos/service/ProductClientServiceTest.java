@@ -18,9 +18,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ProductClientServiceTest {
@@ -140,11 +139,11 @@ class ProductClientServiceTest {
 
     @Test
     void testDecrementStockSuccessful() {
-        // Arrange
-        when(restTemplate.put(
+        // Arrange — put() retorna void, se usa doNothing()
+        doNothing().when(restTemplate).put(
                 eq(BASE_URL + "/products/1/stock/decrement?quantity=5"),
                 eq(null)
-        )).thenReturn(null);
+        );
 
         // Act & Assert
         assertDoesNotThrow(() -> productClientService.decrementStock("1", 5));
@@ -152,11 +151,11 @@ class ProductClientServiceTest {
 
     @Test
     void testIncrementStockSuccessful() {
-        // Arrange
-        when(restTemplate.put(
+        // Arrange — put() retorna void, se usa doNothing()
+        doNothing().when(restTemplate).put(
                 eq(BASE_URL + "/products/1/stock/increment?quantity=5"),
                 eq(null)
-        )).thenReturn(null);
+        );
 
         // Act & Assert
         assertDoesNotThrow(() -> productClientService.incrementStock("1", 5));
@@ -164,11 +163,9 @@ class ProductClientServiceTest {
 
     @Test
     void testDecrementStockError5xx() {
-        // Arrange
-        when(restTemplate.put(
-                anyString(),
-                eq(null)
-        )).thenThrow(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "Server Error"));
+        // Arrange — doThrow para métodos void
+        doThrow(new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "Server Error"))
+                .when(restTemplate).put(anyString(), eq(null));
 
         // Act & Assert
         ExternalServiceException exception = assertThrows(ExternalServiceException.class, () -> {
@@ -179,11 +176,9 @@ class ProductClientServiceTest {
 
     @Test
     void testDecrementStockTimeout() {
-        // Arrange
-        when(restTemplate.put(
-                anyString(),
-                eq(null)
-        )).thenThrow(new ResourceAccessException("Connection timeout"));
+        // Arrange — doThrow para métodos void
+        doThrow(new ResourceAccessException("Connection timeout"))
+                .when(restTemplate).put(anyString(), eq(null));
 
         // Act & Assert
         ExternalServiceException exception = assertThrows(ExternalServiceException.class, () -> {

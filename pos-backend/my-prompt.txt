@@ -1,0 +1,84 @@
+================================================================================
+PROMPT UTILIZADO PARA GENERAR EL SPEC CON KIRO (SDD)
+Proyecto: POS Serverless AWS
+Curso: Software Coding and Testing
+================================================================================
+
+Actúa como un Arquitecto Backend Senior especializado en AWS Serverless, Java,
+AWS SAM, Lambda, API Gateway, DynamoDB, pruebas unitarias y Spec-Driven
+Development.
+
+Necesito construir el backend completo de un sistema POS básico para una
+evaluación académica.
+
+OBJETIVO:
+Desarrollar, probar, documentar y preparar para despliegue un backend serverless
+que permita:
+- Listar productos mediante GET /productos
+- Registrar ventas mediante POST /ventas
+- Usar AWS API Gateway como entrada HTTP
+- Usar dos funciones AWS Lambda implementadas en Java 17
+- Usar dos tablas DynamoDB: Productos y Ventas
+- Usar AWS SAM mediante template.yaml
+- Escribir pruebas unitarias con mocks para aislar DynamoDB
+- Seguir estrictamente Spec-Driven Development
+
+ENDPOINT GET /productos:
+- Debe consultar la tabla DynamoDB Productos
+- Respuesta exitosa:
+  [{"id": "1", "nombre": "Laptop", "precio": 2500},
+   {"id": "2", "nombre": "Mouse", "precio": 50}]
+- Casos: respuesta exitosa, tabla vacía, error de conexión con DynamoDB
+
+ENDPOINT POST /ventas:
+- Debe registrar una venta en la tabla DynamoDB Ventas
+- Request: {"productos": [{"id": "1", "cantidad": 1}]}
+- Respuesta exitosa: {"message": "Venta registrada correctamente"}
+- Casos: venta exitosa, body inválido, producto inexistente, error de DynamoDB
+
+TEMPLATE.YAML (AWS SAM):
+- API Gateway con GET /productos y POST /ventas
+- Lambda ProductosFunction (Java 17)
+- Lambda VentasFunction (Java 17)
+- Tabla DynamoDB ProductosTable (clave primaria: id)
+- Tabla DynamoDB VentasTable (clave primaria: id)
+- Permisos IAM mínimos necesarios
+- Variables de entorno para nombres de tablas
+
+PRUEBAS UNITARIAS (JUnit 5 + Mockito):
+- ProductosHandlerTest: éxito, tabla vacía, error DynamoDB
+- VentasHandlerTest: éxito, body inválido, producto inexistente, error DynamoDB
+- Aislar DynamoDB completamente con mocks
+
+ESTRUCTURA DEL PROYECTO:
+pos-backend/
+├── productos/src/main/java/com/pos/productos/
+│   ├── ProductosHandler.java
+│   └── model/Producto.java
+├── productos/src/test/java/com/pos/productos/
+│   └── ProductosHandlerTest.java
+├── productos/pom.xml
+├── ventas/src/main/java/com/pos/ventas/
+│   ├── VentasHandler.java
+│   └── model/{Venta.java, VentaRequest.java, ProductoItem.java}
+├── ventas/src/test/java/com/pos/ventas/
+│   └── VentasHandlerTest.java
+├── ventas/pom.xml
+├── template.yaml
+├── .gitignore
+└── README.md
+
+REQUISITO SDD OBLIGATORIO:
+Antes de escribir código, generar los specs:
+- requirements.md: objetivo, requisitos funcionales/no funcionales, contratos,
+  criterios de aceptación, casos de prueba
+- design.md: arquitectura serverless, descripción de API Gateway y Lambdas,
+  diseño de tablas DynamoDB, estructura del template.yaml, contratos
+  request/response, manejo de errores, estrategia de pruebas, justificación
+  técnica de Java + AWS SAM
+- tasks.md: tareas ordenadas desde crear specs hasta subir a GitHub
+
+================================================================================
+RESULTADO: Kiro generó los 3 archivos de spec antes de cualquier implementación,
+siguiendo el proceso SDD. El código fue implementado guiado por los specs.
+================================================================================

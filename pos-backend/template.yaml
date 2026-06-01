@@ -1,0 +1,146 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  POS Serverless AWS - Academic Project
+  Backend serverless para sistema POS con GET /productos y POST /ventas.
+  Implementado con AWS Lambda (Java 17), API Gateway y DynamoDB.
+
+Globals:
+  Function:
+    Runtime: java17
+    Architectures:
+      - x86_64
+    MemorySize: 512
+    Timeout: 30
+
+Resources:
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # API Gateway
+  # ─────────────────────────────────────────────────────────────────────────────
+  PosApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      Description: "POS Serverless API - Productos y Ventas"
+      Cors:
+        AllowMethods: "'GET,POST,OPTIONS'"
+        AllowHeaders: "'Content-Type,Authorization'"
+        AllowOrigin: "'*'"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Lambda: ProductosFunction — GET /productos
+  # ─────────────────────────────────────────────────────────────────────────────
+  ProductosFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${AWS::StackName}-productos"
+      CodeUri: productos/
+      Handler: com.pos.productos.ProductosHandler::handleRequest
+      Runtime: java17
+      Description: "Lista todos los productos desde DynamoDB ProductosTable"
+      Environment:
+        Variables:
+          PRODUCTOS_TABLE: !Ref ProductosTable
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ProductosTable
+      Events:
+        GetProductos:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PosApi
+            Path: /productos
+            Method: GET
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # Lambda: VentasFunction — POST /ventas
+  # ─────────────────────────────────────────────────────────────────────────────
+  VentasFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Sub "${AWS::StackName}-ventas"
+      CodeUri: ventas/
+      Handler: com.pos.ventas.VentasHandler::handleRequest
+      Runtime: java17
+      Description: "Registra una venta en DynamoDB VentasTable"
+      Environment:
+        Variables:
+          PRODUCTOS_TABLE: !Ref ProductosTable
+          VENTAS_TABLE: !Ref VentasTable
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref ProductosTable
+        - DynamoDBWritePolicy:
+            TableName: !Ref VentasTable
+      Events:
+        PostVentas:
+          Type: Api
+          Properties:
+            RestApiId: !Ref PosApi
+            Path: /ventas
+            Method: POST
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # DynamoDB: ProductosTable
+  # ─────────────────────────────────────────────────────────────────────────────
+  ProductosTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${AWS::StackName}-productos"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # DynamoDB: VentasTable
+  # ─────────────────────────────────────────────────────────────────────────────
+  VentasTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: !Sub "${AWS::StackName}-ventas"
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Outputs — URLs e información del stack desplegado
+# ─────────────────────────────────────────────────────────────────────────────
+Outputs:
+  ApiUrl:
+    Description: "URL base del API Gateway desplegado"
+    Value: !Sub "https://${PosApi}.execute-api.${AWS::Region}.amazonaws.com/prod"
+    Export:
+      Name: !Sub "${AWS::StackName}-ApiUrl"
+
+  GetProductosEndpoint:
+    Description: "Endpoint GET /productos"
+    Value: !Sub "https://${PosApi}.execute-api.${AWS::Region}.amazonaws.com/prod/productos"
+
+  PostVentasEndpoint:
+    Description: "Endpoint POST /ventas"
+    Value: !Sub "https://${PosApi}.execute-api.${AWS::Region}.amazonaws.com/prod/ventas"
+
+  ProductosFunctionArn:
+    Description: "ARN de la función Lambda ProductosFunction"
+    Value: !GetAtt ProductosFunction.Arn
+
+  VentasFunctionArn:
+    Description: "ARN de la función Lambda VentasFunction"
+    Value: !GetAtt VentasFunction.Arn
+
+  ProductosTableName:
+    Description: "Nombre de la tabla DynamoDB ProductosTable"
+    Value: !Ref ProductosTable
+
+  VentasTableName:
+    Description: "Nombre de la tabla DynamoDB VentasTable"
+    Value: !Ref VentasTable
