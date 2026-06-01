@@ -1,0 +1,17 @@
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/service/SaleServiceTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/service/ReturnServiceTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/service/ProductClientServiceTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/repository/ReceiptRepositoryTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/repository/SaleRepositoryTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/service/PaymentServiceTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/repository/ReturnRecordRepositoryTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/service/ReceiptServiceTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/service/CustomerClientServiceTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/integration/SalesIntegrationTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/service/FreezeServiceTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/model/SaleEntityTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/model/SaleItemEntityTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/service/AuthServiceTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/model/ReturnRecordEntityTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/model/ReceiptEntityTest.java
+/home/jeanpierrediaz/Descargas/pos-backend-mercato/src/test/java/com/mercato/pos/util/MoneyCalculatorTest.java

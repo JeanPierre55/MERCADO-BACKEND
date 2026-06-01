@@ -1,0 +1,17 @@
+com/mercato/pos/model/ReturnRecordEntityTest.class
+com/mercato/pos/service/PaymentServiceTest.class
+com/mercato/pos/service/CustomerClientServiceTest.class
+com/mercato/pos/repository/SaleRepositoryTest.class
+com/mercato/pos/service/AuthServiceTest.class
+com/mercato/pos/model/SaleItemEntityTest.class
+com/mercato/pos/integration/SalesIntegrationTest.class
+com/mercato/pos/util/MoneyCalculatorTest.class
+com/mercato/pos/service/ProductClientServiceTest.class
+com/mercato/pos/service/FreezeServiceTest.class
+com/mercato/pos/service/ReceiptServiceTest.class
+com/mercato/pos/repository/ReceiptRepositoryTest.class
+com/mercato/pos/service/ReturnServiceTest.class
+com/mercato/pos/repository/ReturnRecordRepositoryTest.class
+com/mercato/pos/service/SaleServiceTest.class
+com/mercato/pos/model/SaleEntityTest.class
+com/mercato/pos/model/ReceiptEntityTest.class
