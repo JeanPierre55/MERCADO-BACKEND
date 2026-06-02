@@ -132,18 +132,40 @@ Estas URLs fueron utilizadas posteriormente para realizar las pruebas en Postman
 Resultado final
 El backend fue compilado, desplegado y publicado exitosamente utilizando AWS SAM, AWS Lambda, API Gateway y DynamoDB, quedando disponible para recibir solicitudes HTTP desde aplicaciones externas y permitiendo validar el funcionamiento completo del sistema POS serverless.
 
+
 <img width="1467" height="687" alt="Captura desde 2026-05-31 15-17-05" src="https://github.com/user-attachments/assets/2c287e81-a0e1-4c92-b7e3-58091a04f7f8" />
+
+
 
 <img width="951" height="945" alt="Captura desde 2026-05-31 15-14-32" src="https://github.com/user-attachments/assets/10bee269-a0e3-4c2f-96f2-7e36905e074f" />
 
+
+
 POSTMAN 
+
+
+
 <img width="955" height="1141" alt="Captura desde 2026-05-31 15-21-21" src="https://github.com/user-attachments/assets/3f1764ee-eb62-489e-b6b9-272d1ded8be4" />
+
+
+
 
 <img width="961" height="1006" alt="Captura desde 2026-05-31 15-24-34" src="https://github.com/user-attachments/assets/3a9556e1-28ba-4d0e-bfb1-06a5d7fe8705" />
 
 
+
 Se mira que se guardo en dynamo en aws
+
+
+
 <img width="1920" height="1176" alt="Captura desde 2026-05-31 15-27-32" src="https://github.com/user-attachments/assets/342d9433-0fe6-4e48-8d55-504e5e5c2c95" />
+
+
+
+
+
+
+
 
 
 
